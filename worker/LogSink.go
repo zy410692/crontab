@@ -1,7 +1,7 @@
 package worker
 
 import (
-	"github.com/mongodb/mongo-go-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/zy410692/crontab/common"
 	"context"
 	"go.mongodb.org/mongo-driver/mongo/clientoptions"

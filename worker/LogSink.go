@@ -2,9 +2,9 @@ package worker
 
 import (
 	"github.com/mongodb/mongo-go-driver/mongo"
-	"github.com/owenliang/crontab/common"
+	"github.com/zy410692/crontab/common"
 	"context"
-	"github.com/mongodb/mongo-go-driver/mongo/clientopt"
+	"go.mongodb.org/mongo-driver/mongo/clientoptions"
 	"time"
 )
 
@@ -85,7 +85,7 @@ func InitLogSink() (err error) {
 	if client, err = mongo.Connect(
 		context.TODO(),
 		G_config.MongodbUri,
-		clientopt.ConnectTimeout(time.Duration(G_config.MongodbConnectTimeout) * time.Millisecond)); err != nil {
+		clientoptions.ConnectTimeout(time.Duration(G_config.MongodbConnectTimeout) * time.Millisecond)); err != nil {
 		return
 	}
 

@@ -1,12 +1,12 @@
 package master
 
 import (
-	"github.com/mongodb/mongo-go-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo"
 	"context"
-	"github.com/mongodb/mongo-go-driver/mongo/clientopt"
+	"go.mongodb.org/mongo-driver/mongo/clientoptions"
 	"time"
-	"github.com/owenliang/crontab/common"
-	"github.com/mongodb/mongo-go-driver/mongo/findopt"
+	"github.com/zy410692/crontab/common"
+	"go.mongodb.org/mongo-driver/mongo/findoptions"
 )
 
 // mongodb日志管理
@@ -28,7 +28,7 @@ func InitLogMgr() (err error) {
 	if client, err = mongo.Connect(
 		context.TODO(),
 		G_config.MongodbUri,
-		clientopt.ConnectTimeout(time.Duration(G_config.MongodbConnectTimeout) * time.Millisecond)); err != nil {
+		clientoptions.ConnectTimeout(time.Duration(G_config.MongodbConnectTimeout) * time.Millisecond)); err != nil {
 		return
 	}
 
@@ -58,7 +58,7 @@ func (logMgr *LogMgr) ListLog(name string, skip int, limit int) (logArr []*commo
 	logSort = &common.SortLogByStartTime{SortOrder: -1}
 
 	// 查询
-	if cursor, err = logMgr.logCollection.Find(context.TODO(), filter, findopt.Sort(logSort), findopt.Skip(int64(skip)), findopt.Limit(int64(limit))); err != nil {
+	if cursor, err = logMgr.logCollection.Find(context.TODO(), filter, findoptions.Sort(logSort), findoptions.Skip(int64(skip)), findoptions.Limit(int64(limit))); err != nil {
 		return
 	}
 	// 延迟释放游标
